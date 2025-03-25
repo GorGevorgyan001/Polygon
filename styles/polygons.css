@@ -1,0 +1,7 @@
+.textarea {
+    display: flex;
+}
+label {
+    display: grid;
+    margin: 0 10px;
+}

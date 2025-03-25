@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Հատում/հանում/միավորում</title>
+    <link rel="stylesheet" href="styles/polygons.css">
+</head>
+
+<body>
+    <h2>Օրթոգոնալ ուղղանկյունաձև տիրույթների հատում, հանում, միավորում </h2>
+    <p>Մուտքագրել (x, y) կոորդինատները։Նոր կետը՝ նոր տողից</p>
+    <div class="textarea">
+        <label for="coordsInput">Առաջին տիրույթ
+            <textarea id="coordsInput1" rows="6" cols="30"></textarea><br>    
+        </label>
+        
+        <label for="coordsInput2">Երկրորդ տիրույթ
+            <textarea id="coordsInput2" rows="6" cols="30"></textarea><br>
+        </label>
+        
+    </div>
+
+    <button onclick="processPolygons()">Կառուցել</button>
+    <p id="message"></p>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="scripts/grid.js"></script>
+    <script src="scripts/point.js"></script>
+    <script src="scripts/polygon.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>
