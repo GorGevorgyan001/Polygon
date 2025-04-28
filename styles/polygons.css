@@ -1,7 +1,12 @@
-.textarea {
-    display: flex;
+canvas {
+    border: 1px solid black;
 }
-label {
-    display: grid;
-    margin: 0 10px;
+
+textarea {
+    width: 100%;
+    height: 60px;
+}
+
+button {
+    margin: 5px;
 }

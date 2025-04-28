@@ -8,6 +8,31 @@
 <body>
     <h2>Կետի/հատվածի պատկանելիությունը տիրույթին</h2>
     <p>Մուտքագրել (x, y) կոորդինատները։Նոր կետը՝ նոր տողից</p>
-    <textarea id="coordsInput" rows="6" cols="30"></textarea><br>
+    <textarea id="coordsInputpoint" rows="6" cols="30"></textarea><br>
+    <button onclick="processPoly()">Կառուցել</button>
+    <div class="container">
+        <div class="block">
+            <h3>Կետի ստուգում</h3>
+            <label>X: <input type="number" id="pointX"></label>
+            <label>Y: <input type="number" id="pointY"></label>
+            <button onclick="checkPoint()">Ստուգել</button>
+        </div>
+
+        <div class="block">
+            <h3>Հատվածի ստուգում</h3>
+            <label>X1: <input type="number" id="segX1"></label>
+            <label>Y1: <input type="number" id="segY1"></label>
+            <label>X2: <input type="number" id="segX2"></label>
+            <label>Y2: <input type="number" id="segY2"></label>
+            <button onclick="checkSegment()">Ստուգել</button>
+        </div>
+    </div>
+    <p id="message"></p>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="scripts/grid.js"></script>
+    <script src="scripts/point.js"></script>
+    <script src="scripts/segment.js"></script>
+    <script src="scripts/polygon.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 </html>

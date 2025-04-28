@@ -14,47 +14,87 @@ function parsePoints(id) {
     return points;
 }
 
+let field = [];
+
 function processPolygon() {
     let points = parsePoints("coordsInput");
     let message = "";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawGridAndAxes(ctx);
+    
     try {
         let polygon = new OrhogonlPolygon(...points);
-        polygon.draw(ctx);
+        field.push(polygon)
         let area = polygon.calculateArea();
         let perimeter = polygon.calculatePerimeter();
         message = `S= ${area}, P= ${perimeter}`;
     } catch (error) {
         let a = new Polygon(...points)
-        a.draw(ctx);
+        field.push(a)
         message = error.message;
 
     }
+    draw(ctx);
     document.getElementById("message").innerText = message;
 }
-function processPolygons() {
-    let points1 = parsePoints("coordsInput1");
-    let points2 = parsePoints("coordsInput2");
+function processPoly (){
+    let points = parsePoints("coordsInputpoint");
     let message = "";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawGridAndAxes(ctx);
     try {
-        let nPolygon1 = new OrhogonlPolygon(...points1);
-        let nPolygon2 = new OrhogonlPolygon(...points2);
-        nPolygon1.draw(ctx);
-        nPolygon2.draw(ctx, "black");
-        let c=nPolygon1.union(nPolygon2);
-        c.draw(ctx,'black','red');
+        let polygon = new OrhogonlPolygon(...points);
+        field.push(polygon)
     } catch (error) {
-        let a = new Polygon(...points1);
-        let b = new Polygon(...points2);
-        a.draw(ctx);
-        b.draw(ctx,"black");
+        let a = new Polygon(...points)
+        field.push(a)
         message = error.message;
 
     }
+    
+    draw(ctx);
+    
     document.getElementById("message").innerText = message;
+}
+function checkPoint() {
+    let points = parsePoints("coordsInputpoint");
+    let polygon = new OrhogonlPolygon(...points);
+    const x = parseInt(document.getElementById("pointX").value);
+    const y = parseInt(document.getElementById("pointY").value);
+    if (isNaN(x) || isNaN(y)) {
+        document.getElementById("result").innerText = "Ներմուծեք ճիշտ կոորդինատներ";
+        return;
+    }
+    const point = new Point(x, y);
+    const inside = isPointInPolygon(point, polygon);
+    document.getElementById("message").innerText = inside
+        ? "Կետը պատկանում է տիրույթին "
+        : "Կետը չի պատկանում տիրույթին";
+    draw(ctx);
+    point.draw(ctx, inside ? "green" : "red");
+    
+}
+function draw(ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawGridAndAxes(ctx);
+    field.forEach(element => element.draw(ctx))
+}
+function checkSegment() {
+    const x1 = parseInt(document.getElementById("segX1").value);
+    const y1 = parseInt(document.getElementById("segY1").value);
+    const x2 = parseInt(document.getElementById("segX2").value);
+    const y2 = parseInt(document.getElementById("segY2").value);
+     if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+        document.getElementById("result").innerText = "Մուտքագրեք կոռեկտ տվյալներ";
+        return;
+    }
+    let points = parsePoints("coordsInputpoint");
+    let polygon = new OrhogonlPolygon(...points);
+    const p1=new Point(x1,y1);
+    const p2=new Point(x2,y2);
+    const segment=new Segment(p1,p2);
+    const resultText = Includes(segment, polygon);
+    document.getElementById("message").innerText = resultText;
+    draw(ctx);
+    segment.draw(ctx);
 }
 
 
